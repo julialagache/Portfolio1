@@ -173,9 +173,14 @@ main {
 }
 
 .card h2 {
-  margin-bottom: 10px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: #fff;
+  position: relative;
+  background-color: transparent;
 }
 
 .card p {
@@ -688,7 +693,7 @@ button:hover {
 
 .animated-gallery h2 {
   text-align: center;
-  font-size: 3rem;
+  font-size: 2rem;
   margin-bottom: 60px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -807,7 +812,10 @@ button:hover {
 .inside1,
 .inside2,
 .inside3,
-.inside4 {
+.inside4,
+.inside5,
+.inside6,
+.inside7 {
   height: 100%;
   border-radius: 10px;
   background: linear-gradient(to right, #ff6a00, #ee0979);
@@ -815,10 +823,13 @@ button:hover {
 }
 
 /* Valeurs de remplissage */
-.inside1 { width: 35%; }
+.inside1 { width: 40%; }
 .inside2 { width: 45%; }
-.inside3 { width: 45%; }
-.inside4 { width: 40%; }
+.inside3 { width: 25%; }
+.inside4 { width: 85%; }
+.inside5 { width: 45%; }
+.inside6 { width: 45%; }
+.inside7 { width: 25%; }
 
 /* Optionnel : anim au chargement */
 @keyframes fillBar {
