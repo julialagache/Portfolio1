@@ -207,173 +207,18 @@
         document.querySelector('.burger').addEventListener('click', () => {
             document.querySelector('.nav-links').classList.toggle('open');
         });
-        
-        (function () {
-  var width,
-    height,
-    largeHeader,
-    canvas,
-    ctx,
-    points,
-    target,
-    animateHeader = true;
+       
+        window.addEventListener('scroll', function () {
+    const header = document.querySelector('.header');
+    const landingHeight = document.querySelector('.landing-page').offsetHeight;
 
-  initHeader();
-  initAnimation();
-  addListeners();
-
- 
-  function initHeader() {
-
-    width = window.innerWidth;
-    height = window.innerHeight;
-
-
-    target = { x: width / 2, y: height / 2 };
-
-
-    largeHeader = document.getElementById("large-header");
-    largeHeader.style.height = height + "px";
-
-    canvas = document.getElementById("demo-canvas");
-    canvas.width = width;
-    canvas.height = height;
-    ctx = canvas.getContext("2d");
-
-
-    points = [];
-    for (var x = 0; x < width; x += width / 20) {
-      for (var y = 0; y < height; y += height / 20) {
-        var px = x + (Math.random() * width) / 20;
-        var py = y + (Math.random() * height) / 20;
-        points.push({ x: px, originX: px, y: py, originY: py });
-      }
+    if (window.scrollY > landingHeight - 60) {
+      header.classList.add('shadow');
+    } else {
+      header.classList.remove('shadow');
     }
-
-
-    for (var i = 0; i < points.length; i++) {
-      var closest = [];
-      var p1 = points[i];
-      for (var j = 0; j < points.length; j++) {
-        var p2 = points[j];
-        if (p1 !== p2) {
-          var placed = false;
-          for (var k = 0; k < 5; k++) {
-            if (!placed) {
-              if (!closest[k] || getDistance(p1, p2) < getDistance(p1, closest[k])) {
-                closest[k] = p2;
-                placed = true;
-              }
-            }
-          }
-        }
-      }
-      p1.closest = closest;
-    }
-
-
-    points.forEach((point) => {
-      point.circle = new Circle(point, 2 + Math.random() * 2, "rgba(255,255,255,0.3)");
-    });
-  }
-
-
-  function addListeners() {
-    window.addEventListener("mousemove", mouseMove);
-    window.addEventListener("resize", resize);
-  }
-
-
-  function mouseMove(e) {
-    target.x = e.pageX || e.clientX + document.documentElement.scrollLeft;
-    target.y = e.pageY || e.clientY + document.documentElement.scrollTop;
-  }
-
-
-  function resize() {
-    width = window.innerWidth;
-    height = window.innerHeight;
-    largeHeader.style.height = height + "px";
-    canvas.width = width;
-    canvas.height = height;
-  }
-
-
-  function initAnimation() {
-    animate();
-    points.forEach(shiftPoint);
-  }
-
-
-  function animate() {
-    if (animateHeader) {
-      ctx.clearRect(0, 0, width, height);
-      points.forEach((point) => {
-        if (Math.abs(getDistance(target, point)) < 4000) {
-          point.active = 0.3;
-          point.circle.active = 0.6;
-        } else if (Math.abs(getDistance(target, point)) < 20000) {
-          point.active = 0.1;
-          point.circle.active = 0.3;
-        } else if (Math.abs(getDistance(target, point)) < 40000) {
-          point.active = 0.02;
-          point.circle.active = 0.1;
-        } else {
-          point.active = 0;
-          point.circle.active = 0;
-        }
-
-        drawLines(point);
-        point.circle.draw();
-      });
-    }
-    requestAnimationFrame(animate);
-  }
-
-
-  function shiftPoint(point) {
-    TweenLite.to(point, 1 + 1 * Math.random(), {
-      x: point.originX - 50 + Math.random() * 100,
-      y: point.originY - 50 + Math.random() * 100,
-      ease: Circ.easeInOut,
-      onComplete: () => shiftPoint(point),
-    });
-  }
-
- 
-  function drawLines(point) {
-    if (!point.active) return;
-    point.closest.forEach((closestPoint) => {
-      ctx.beginPath();
-      ctx.moveTo(point.x, point.y);
-      ctx.lineTo(closestPoint.x, closestPoint.y);
-      ctx.strokeStyle = `rgba(0, 123, 255, ${point.active})`;
-      ctx.stroke();
-    });
-  }
-
- 
-  function Circle(pos, rad, color) {
-    this.pos = pos || null;
-    this.radius = rad || null;
-    this.color = color || null;
-    this.active = 0;
-
-    this.draw = function () {
-      if (!this.active) return;
-      ctx.beginPath();
-      ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false);
-      ctx.fillStyle = `rgba(0, 64, 128, ${this.active})`;
-      ctx.fill();
-    };
-  }
-
-
-  function getDistance(p1, p2) {
-    return Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2);
-  }
-})();
-
+  });
     </script>
+
 </body>
 </html>
