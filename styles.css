@@ -167,6 +167,9 @@ main {
   margin-bottom: 60px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: #fff;
+  position: relative;
+  background-color: transparent;
 }
 
 .card h2 {
