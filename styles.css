@@ -677,8 +677,10 @@ button:hover {
 
 .animated-gallery {
   padding: 80px 20px;
-  color: rgb(251, 251, 251);
-  overflow-x: hidden;
+  color: #fbfbfb;
+  min-height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  background-color: transparent;
 }
 
 .animated-gallery h2 {
@@ -687,40 +689,53 @@ button:hover {
   margin-bottom: 60px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: #fff;
+  position: relative;
+  background-color: transparent;
+}
+
+.animated-gallery h2::after {
+  content: '';
+  position: absolute;
+  width: 80px;
+  height: 4px;
+  background: #ffffff;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 10px;
+  background-color: transparent;
 }
 
 .gallery-track {
-  display: flex;
-  gap: 15px;
-  overflow-x: auto;
-  padding: 20px;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-}
-
-.gallery-track::-webkit-scrollbar {
-  display: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  padding: 0 10px;
 }
 
 .gallery-card {
-  flex: 0 0 auto;
-  scroll-snap-align: center;
-  width: 300px;
-  height: 400px;
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  transform: translateY(50px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+  transform: translateY(30px);
   opacity: 0;
   animation: fadeInUp 0.8s forwards;
+  animation-delay: calc(var(--i) * 0.1s);
+  transition: transform 0.4s ease;
+}
+
+.gallery-card:hover {
+  transform: scale(1);
 }
 
 .gallery-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: grayscale(80%);
-  transition: all 0.5s ease;
+  transition: filter 0.5s ease, transform 0.5s ease;
+  filter: grayscale(40%) brightness(0.9);
 }
 
 .gallery-card:hover img {
@@ -734,6 +749,7 @@ button:hover {
     opacity: 1;
   }
 }
+
 
 @media only screen and (max-width: 768px) {
   .main-title {
