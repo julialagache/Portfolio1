@@ -803,7 +803,8 @@ button:hover {
 
 .inside1,
 .inside2,
-.inside3 {
+.inside3,
+.inside4 {
   height: 100%;
   border-radius: 10px;
   background: linear-gradient(to right, #ff6a00, #ee0979);
@@ -812,9 +813,9 @@ button:hover {
 
 /* Valeurs de remplissage */
 .inside1 { width: 35%; }
-.inside2 { width: 40%; }
+.inside2 { width: 45%; }
 .inside3 { width: 45%; }
-.inside3 { width: 45%; }
+.inside4 { width: 40%; }
 
 /* Optionnel : anim au chargement */
 @keyframes fillBar {
@@ -836,23 +837,11 @@ button:hover {
       padding: 5px 0 5px 8px;
   }
 }
+
 .landing-page {
   position: relative;
   height: 100vh;
   overflow: hidden;
-}
-
-.bg-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  object-fit: cover;
-  z-index: -1;
 }
 
 .hero-content {
