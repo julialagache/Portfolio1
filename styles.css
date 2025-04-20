@@ -100,10 +100,21 @@ display: inline-block;
 background: transparent;
 }
 
+.nav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px; /* ajoute un peu d'air des deux côtés */
+  background: transparent;
+}
+
 .nav-links {
   list-style: none;
   display: flex;
   gap: 25px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
 }
 
 .nav-links li a {
@@ -717,10 +728,11 @@ button:hover {
 
 .gallery-track {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 30px;
   padding: 0 10px;
 }
+
 
 .gallery-card {
   position: relative;
