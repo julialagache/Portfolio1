@@ -8,6 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css">
+<script src="https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.js"></script>
+
 
 </head>
 
@@ -39,6 +42,7 @@
               <li><a href="#experience">Expériences</a></li>
               <li><a href="#competences">Compétences</a></li>
               <li><a href="#projects">Projets</a></li>
+              <li><a href="#photos">Mes photos</a></li>
               <li><a href="#contact">Contact</a></li>
           </ul>
       </nav>
@@ -152,7 +156,7 @@
 </section>
 
 
-    <section class="animated-gallery">
+    <section id="photos" class="animated-gallery">
       <h2>Mes Photos</h2>
       <div class="gallery-track">
         <div class="gallery-card"><img src="Serveur.jpg" alt="Projet 1"></div>
@@ -244,7 +248,7 @@
       header.classList.remove('shadow');
     }
   });
-  // Script pour détecter quand une image est dans le viewport
+  // Animation au scroll
 const galleryCards = document.querySelectorAll('.gallery-card');
 
 const observer = new IntersectionObserver(entries => {
@@ -260,6 +264,119 @@ const observer = new IntersectionObserver(entries => {
 galleryCards.forEach(card => {
   observer.observe(card);
 });
+
+// Pop-up Lightbox au clic
+const images = document.querySelectorAll('.gallery-card img');
+let imageUrls = [];
+
+images.forEach(img => {
+  imageUrls.push(img.src); // On stocke toutes les images
+});
+
+images.forEach((img, index) => {
+  img.addEventListener('click', () => {
+    openLightbox(index);
+  });
+});
+
+function openLightbox(startIndex) {
+  let currentIndex = startIndex;
+
+  const instance = basicLightbox.create(`
+    <div class="lightbox-wrapper" style="
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      height: 100vh; 
+      width: 100vw; 
+      padding: 20px; 
+      box-sizing: border-box;
+      position: relative;
+    ">
+      <div class="lightbox-content" style="
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      ">
+        <button id="close" style="
+          position: absolute; 
+          top: -15px; 
+          right: -15px; 
+          width: 45px;
+          height: 45px;
+          background: rgba(255, 255, 255, 0.15); 
+          border: 1px solid rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          backdrop-filter: blur(8px);
+          -webkit-backdrop-filter: blur(8px);
+          color: white; 
+          font-size: 1.8rem; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer; 
+          transition: background 0.3s, transform 0.3s;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+          z-index: 9999;
+        ">✖</button>
+
+        <img src="${imageUrls[currentIndex]}" style="
+          max-width: 100%; 
+          max-height: 80vh; 
+          border-radius: 10px;
+          box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        ">
+        <div class="lightbox-controls" style="margin-top: 20px;">
+          <button id="prev" style="margin-right: 10px;">←</button>
+          <button id="next">→</button>
+        </div>
+      </div>
+    </div>
+  `, {
+    onShow: (instance) => {
+      const nextBtn = instance.element().querySelector('#next');
+      const prevBtn = instance.element().querySelector('#prev');
+      const closeBtn = instance.element().querySelector('#close');
+
+      nextBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % imageUrls.length;
+        updateImage(instance, currentIndex);
+      });
+
+      prevBtn.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + imageUrls.length) % imageUrls.length;
+        updateImage(instance, currentIndex);
+      });
+
+      closeBtn.addEventListener('click', () => {
+        instance.close();
+      });
+
+      // Effet au hover sur la croix
+      closeBtn.addEventListener('mouseenter', () => {
+        closeBtn.style.background = 'rgba(255, 255, 255, 0.3)';
+        closeBtn.style.transform = 'scale(1.1)';
+      });
+      closeBtn.addEventListener('mouseleave', () => {
+        closeBtn.style.background = 'rgba(255, 255, 255, 0.15)';
+        closeBtn.style.transform = 'scale(1)';
+      });
+    }
+  });
+
+  instance.show();
+}
+
+
+
+function updateImage(instance, index) {
+  const img = instance.element().querySelector('img');
+  img.src = imageUrls[index];
+}
 
     </script>
 

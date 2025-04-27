@@ -769,6 +769,37 @@ button:hover {
     font-size: 3em;
   }
 }
+.lightbox-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-controls {
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* un bouton à gauche, l'autre à droite */
+  align-items: center;
+  margin-top: 20px;
+  padding: 0 30px; /* petit espace intérieur */
+}
+
+.lightbox-controls button {
+  background-color: #000000;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  transition: background 0.3s ease;
+  color: #fff; /* pour être sûr que l'icône/flèche est bien blanche */
+}
+
+.lightbox-controls button:hover {
+  background-color: #333333; /* effet hover un peu plus clair */
+}
+
 
 /* === STYLE COMPÉTENCES === */
 
