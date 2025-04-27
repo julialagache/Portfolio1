@@ -131,15 +131,16 @@ html {
   background: transparent;
 }
 
-/* Style du burger */
+/* --- STYLE DU BURGER --- */
 .burger {
-  display: none; /* Par défaut, cacher le burger */
+  display: none; /* Cacher par défaut */
   flex-direction: column;
   justify-content: space-around;
   width: 30px;
   height: 21px;
   cursor: pointer;
-  z-index: 1100;
+  z-index: 1101; /* Passe au-dessus du menu */
+  background: transparent;
 }
 
 .burger span {
@@ -150,7 +151,7 @@ html {
   transition: all 0.3s ease;
 }
 
-/* Animation pour transformer en croix */
+/* Animation croix */
 .burger.active span:nth-child(1) {
   transform: rotate(-45deg) translate(-5px, 6px);
 }
@@ -163,38 +164,46 @@ html {
   transform: rotate(45deg) translate(-5px, -6px);
 }
 
-/* Pour afficher le menu burger quand il est ouvert */
-.nav-links.open {
-  display: block; /* Assure que le menu est affiché */
-}
-
-/* --- Media Query pour les petits écrans --- */
+/* --- MENU NAVIGATION --- */
 @media screen and (max-width: 768px) {
-  /* Menu burger en mode mobile */
   .nav-links {
-    position: fixed;
-    top: 80px; /* juste sous le header */
-    right: -100%; /* Commence à gauche, caché */
-    width: 100%;
-    height: calc(100vh - 80px);
-    background-color: #000000;
+    position: absolute; /* plus logique ici pour éviter les bugs */
+    top: 80px; /* aligné sous le header */
+    right: 20px; /* petit espace au bord */
+    width: 250px; /* pas full width */
+    background-color: #111; /* plus doux */
+    border-radius: 12px; /* coin arrondi = + doux */
+    padding: 20px;
+    display: none; /* caché par défaut */
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 30px;
-    transition: right 0.3s ease;
-    z-index: 1000;
+    gap: 20px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+    z-index: 1100; /* sous le burger mais au-dessus du reste */
+    animation: fadeSlide 0.3s ease forwards;
   }
 
   .nav-links.open {
-    right: 0; /* Afficher le menu en déplaçant à droite */
+    display: flex; /* passe en flex quand open */
   }
 
-  /* Afficher le burger en mode mobile */
   .burger {
     display: flex;
   }
+
+  /* Petite animation d'entrée */
+  @keyframes fadeSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
+
 
 
 main {
