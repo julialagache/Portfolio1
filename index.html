@@ -198,7 +198,8 @@
 
     <script>
         
-         document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
+    // --- Animation apparition au scroll ---
     const scrollElements = document.querySelectorAll('.scroll-hidden');
 
     const elementInView = (el, offset = 100) => {
@@ -208,46 +209,61 @@
             (elementTop <= (window.innerHeight || document.documentElement.clientHeight) - offset) &&
             (elementBottom >= 0)
         );
-        };
+    };
 
-        const displayScrollElement = (element) => {
-            element.classList.add('scroll-visible');
-        };
+    const displayScrollElement = (element) => {
+        element.classList.add('scroll-visible');
+    };
 
-        const handleScrollAnimation = () => {
-            scrollElements.forEach((el) => {
-                if (elementInView(el, 150)) {
-                    displayScrollElement(el);
-                }
-            });
-            console.log('Scroll détecté');
-        };
-
-        window.addEventListener('scroll', () => {
-            handleScrollAnimation();
+    const handleScrollAnimation = () => {
+        scrollElements.forEach((el) => {
+            if (elementInView(el, 150)) {
+                displayScrollElement(el);
+            }
         });
+    };
 
-        handleScrollAnimation();
+    window.addEventListener('scroll', handleScrollAnimation);
+    handleScrollAnimation();
+
+    // --- Fonction burger menu ---
+    const burger = document.querySelector('.burger'); // Le bouton burger
+    const navLinks = document.querySelector('.nav-links'); // Le menu
+    const navItems = document.querySelectorAll('.nav-links li a'); // Les liens du menu
+
+    // Ouvrir/fermer le menu burger
+    burger.addEventListener('click', () => {
+        navLinks.classList.toggle('open'); // Ajoute/retire la classe 'open' pour afficher/masquer le menu
+        burger.classList.toggle('active'); // Ajoute/retire la classe 'active' pour l'animation du burger
     });
-       
-        window.onload = () => {
-            window.scrollTo(0, 0);
-        };
 
-        document.querySelector('.burger').addEventListener('click', () => {
-            document.querySelector('.nav-links').classList.toggle('open');
+    // Fermer le menu burger après avoir cliqué sur un lien
+    navItems.forEach(item => {
+        item.addEventListener('click', () => {
+            navLinks.classList.remove('open'); // Enlève la classe 'open' pour fermer le menu
+            burger.classList.remove('active'); // Enlève la classe 'active' pour l'animation du burger
         });
-       
-        window.addEventListener('scroll', function () {
-    const header = document.querySelector('.header');
-    const landingHeight = document.querySelector('.landing-page').offsetHeight;
+    });
 
-    if (window.scrollY > landingHeight - 60) {
-      header.classList.add('shadow');
-    } else {
-      header.classList.remove('shadow');
+    // --- Scroll pour mettre l'ombre sur le header ---
+    const header = document.querySelector('.header');
+    const landingPage = document.querySelector('.landing-page');
+
+    if (header && landingPage) {
+        window.addEventListener('scroll', () => {
+            const landingHeight = landingPage.offsetHeight;
+
+            if (window.scrollY > landingHeight - 60) {
+                header.classList.add('shadow');
+            } else {
+                header.classList.remove('shadow');
+            }
+        });
     }
-  });
+
+    // --- Scroll tout en haut au chargement ---
+    window.scrollTo(0, 0);
+});
   // Animation au scroll
 const galleryCards = document.querySelectorAll('.gallery-card');
 
